@@ -1,23 +1,46 @@
-# passforge 🔐
+# PassForge - Secure Password Generator for Terminal
 
-A simple password generator tool built for Kali Linux (and other Linux systems).
+![Project Status](https://img.shields.io/badge/status-active-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Python Version](https://img.shields.io/badge/python-3.8+-blue)
 
-## ✨ Features
+PassForge is a command-line password generator tool built with Python's `random` and `string` modules, designed for cybersecurity professionals and Kali Linux users.
 
-- Generates strong and random passwords
-- Supports custom password length
-- Option to include:
-  - Uppercase letters
-  - Lowercase letters
-  - Numbers
-  - Symbols
-- Lightweight, fast, and terminal-friendly
+## 🚀 Overview
 
-## 🧪 Example Usage
+PassForge is an open-source project that:
+- Generates cryptographically strong random passwords
+- Uses Python's built-in `random` and `string` modules for security
+- Provides a simple terminal interface for password generation
 
+## 🛠 Core Implementation
+
+| Module | Purpose | Security Note |
+|--------|---------|---------------|
+| `random.SystemRandom()` | Cryptographically secure random number generation | Uses OS-provided entropy |
+| `string` | Provides character sets (ascii_letters, digits, punctuation) | Predefined safe character sets |
+
+## ✨ Key Features
+
+- 🔒 Secure password generation using `random.SystemRandom()`
+- ⚡ Customizable length (8-64 characters)
+- 📋 Clipboard copying functionality
+- 🎨 Character set options using `string` module:
+  - `string.ascii_letters` (uppercase + lowercase)
+  - `string.digits` (0-9)
+  - `string.punctuation` (special characters)
+- 🌐 Simple terminal interface
+
+## 📥 Installation
+
+### Requirements:
+- Python 3.8+
+- pip3
+
+### Installation Methods:
+
+1. **Clone the repository and install dependencies**:
 ```bash
-$ python3 passforge.py
-[+] ====== Welcome To PassForge ====== [+]
-How many characters for the password?: 8
-Generated Password: OSf0qN!k
-Generate another password? [Y/n]: 
+git clone https://github.com/yourusername/passforge.git
+cd passforge
+pip install -r requirements.txt
