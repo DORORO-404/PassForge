@@ -1,32 +1,51 @@
 # PassForge - Secure Password Generator for Terminal
 
-![Project Status](https://img.shields.io/badge/status-active-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
+![Project Status](https://img.shields.io/badge/status-active-brightgreen)  
+![License](https://img.shields.io/badge/license-MIT-blue)  
 ![Python Version](https://img.shields.io/badge/python-3.8+-blue)
 
-PassForge is a command-line password generator tool built with Python's `random` and `string` modules, designed for cybersecurity professionals and Kali Linux users.
+**PassForge** is a simple, terminal-based password generator written in Python. It focuses on security and usability, making it a great companion for developers, cybersecurity professionals, and Kali Linux users.
 
-## 🚀 Overview
+## 🚀 About The Project
 
-PassForge is an open-source project that:
-- Generates cryptographically strong random passwords
-- Uses Python's built-in `random` and `string` modules for security
-- Provides a simple terminal interface for password generation
+PassForge is an open-source password generator that provides strong and secure passwords via a clean terminal interface. It uses Python's built-in `random.SystemRandom()` for cryptographically secure randomness, and allows customization of password length and character set.
 
-## 🛠 Core Implementation
+The tool can:
 
-| Module | Purpose | Security Note |
-|--------|---------|---------------|
-| `random.SystemRandom()` | Cryptographically secure random number generation | Uses OS-provided entropy |
-| `string` | Provides character sets (ascii_letters, digits, punctuation) | Predefined safe character sets |
+- Generate random passwords securely using OS entropy
+- Offer length customization from 8 to 64 characters
+- Include or exclude specific character types (letters, digits, punctuation)
+- Copy generated passwords to clipboard (optional)
 
-## ✨ Key Features
+## 🛠 Technologies Used
 
-- 🔒 Secure password generation using `random.SystemRandom()`
-- ⚡ Customizable length (8-64 characters)
-- 📋 Clipboard copying functionality
-- 🎨 Character set options using `string` module:
-  - `string.ascii_letters` (uppercase + lowercase)
-  - `string.digits` (0-9)
-  - `string.punctuation` (special characters)
-- 🌐 Simple terminal interface
+| Language   | Type     | Requirements     |
+|------------|----------|------------------|
+| Python 3.8+| CLI Tool | No external libraries (optional clipboard module) |
+
+**Python Modules**:
+- `random.SystemRandom()`: Uses OS-level entropy source for secure generation
+- `string`: Built-in character sets like letters, digits, and symbols
+
+## ✨ Features
+
+- ✅ Cryptographically secure password generation
+- ✅ Customizable password length (8–64 characters)
+- ✅ Choose character types: letters, numbers, punctuation
+- ✅ Optional clipboard copy functionality
+- ✅ Fast and easy-to-use terminal interface
+- ✅ Works offline, no external API needed
+
+## ⚠️ Notes
+
+- Clipboard support may require an additional module like `pyperclip` (optional)
+- Always store generated passwords securely
+
+## 👨‍💻 Author
+
+Tool developed by **dororo__404**  
+GitHub: [@dororo__404](https://github.com/dororo--404)
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
