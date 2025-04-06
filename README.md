@@ -17,7 +17,7 @@ A simple password generator tool built for Kali Linux (and other Linux systems).
 
 ```bash
 $ python3 passforge.py
-[+] ====== Welcome To Advanced Password Generator ====== [+]
+[+] ====== Welcome To PassForge ====== [+]
 How many characters for the password?: 8
-Generated Password: "/CxIUb2o"
+Generated Password: OSf0qN!k
 Generate another password? [Y/n]: 

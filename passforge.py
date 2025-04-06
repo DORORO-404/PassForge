@@ -2,7 +2,7 @@
 import string
 import random
 
-print("\033[1;31m[+] ====== Welcome To Advanced Password Generator ====== [+]\033[0m")
+print("\033[1;31m[+] ====== Welcome To PassForge ====== [+]\033[0m")
 
 while True:
     # Reset password list for each generation
@@ -49,7 +49,7 @@ while True:
     # Shuffle and display password
     random.shuffle(password)
     final_password = "".join(password)
-    print(f"Generated Password: \"{final_password}\"")
+    print(f"Generated Password: {final_password}")
 
     # Ask to continue
     while True:
