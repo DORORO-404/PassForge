@@ -3,6 +3,7 @@
 # Import required modules
 import string
 import random
+from datetime import datetime
 
 # ANSI Escape Codes for color formatting
 RED = "\033[1;31m"
@@ -95,6 +96,7 @@ def save_passwords(passwords):
         if save == "y" or save == "":  # User wants to save
             file_name = get_file_name()
             with open(f"{file_name}.txt", "w") as file:
+                file.write(f"Passwords generated on {datetime.now()}\n\n")
                 for pw in passwords:
                     file.write(f"{pw}\n")
             print(f"{GREEN}✅ Passwords saved to '{file_name}.txt'{RESET}")
