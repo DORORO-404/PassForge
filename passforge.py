@@ -1,9 +1,9 @@
 # ===== PassForge: Advanced Password Generator =====
 
-# Import required modules
 import string
 import random
 from datetime import datetime
+import pyfiglet
 
 # ANSI Escape Codes for color formatting
 RED = "\033[1;31m"
@@ -11,26 +11,28 @@ GREEN = "\033[1;32m"
 YELLOW = "\033[1;33m"
 BLUE = "\033[1;34m"
 CYAN = "\033[1;36m"
+MAGENTA = "\033[1;35m"
 RESET = "\033[0m"
 
-# Function to display the program title
+# Show fancy banner using pyfiglet
+def print_banner():
+    ascii_banner = pyfiglet.figlet_format("PassForge")
+    print(f"{MAGENTA}{ascii_banner}{RESET}")
+    box = f"""{CYAN}
+  ╔═══════════════════════════════════════╗
+  ║     {MAGENTA}PassForge - Password Generator{CYAN}    ║
+  ║     {MAGENTA}Developed by: DORORO{CYAN}              ║
+  ║     {MAGENTA}Github: DORORO-404{CYAN}                ║
+  ║     {MAGENTA}Version: 1.0{CYAN}                      ║
+  ╚═══════════════════════════════════════╝{RESET}
+    """
+    print(box)
+
+# Display welcome message
 def print_title():
     print(f"{RED}[+] ====== {BLUE}Welcome to PassForge{RED} ====== [+]{RESET}")
 
-# Banner for PassForge
-def show_banner():
-    banner = f"""
-┌──────────────────────────────────────────────────────────────┐
-│   PassForge {YELLOW}v1.0{RESET} - Password Generator                        │
-│   Developed by: {GREEN}dororo__404{RESET}                                  │
-│   System: {BLUE}Kali Linux Ready 🐍{RESET}                                │
-│   GitHub: {CYAN}https://github.com/DORORO-404{RESET}                      │
-└──────────────────────────────────────────────────────────────┘
-{YELLOW}🔐 Type 'exit' anytime to quit the program.{RESET}
-"""
-    print(banner)
-
-# Ask for password length
+# Get password length
 def length_password():
     while True:
         user_input = input(f"{YELLOW}How many characters should the password have?: {RESET}")
@@ -46,7 +48,7 @@ def length_password():
         except ValueError:
             print(f"{RED}❌ Invalid input. Please enter a valid number.{RESET}")
 
-# Ask how many passwords to generate
+# Get number of passwords to generate
 def count_password():
     while True:
         user_input = input(f"{YELLOW}How many passwords would you like to generate?: {RESET}")
@@ -62,35 +64,35 @@ def count_password():
         except ValueError:
             print(f"{RED}❌ Invalid input. Please enter a valid number.{RESET}")
 
-# Generate a single password
+# Generate password
 def generate_password(length):
     password = []
 
-    lower_chars = list(string.ascii_lowercase)
-    upper_chars = list(string.ascii_uppercase)
+    lower = list(string.ascii_lowercase)
+    upper = list(string.ascii_uppercase)
     digits = list(string.digits)
-    punctuation = list(string.punctuation)
+    symbols = list(string.punctuation)
 
-    random.shuffle(lower_chars)
-    random.shuffle(upper_chars)
+    random.shuffle(lower)
+    random.shuffle(upper)
     random.shuffle(digits)
-    random.shuffle(punctuation)
+    random.shuffle(symbols)
 
     num_lower = num_upper = round(length * 0.2)
-    num_digits = num_punct = round(length * 0.1)
+    num_digits = num_symbols = round(length * 0.1)
 
-    password += lower_chars[:num_lower]
-    password += upper_chars[:num_upper]
+    password += lower[:num_lower]
+    password += upper[:num_upper]
     password += digits[:num_digits]
-    password += punctuation[:num_punct]
+    password += symbols[:num_symbols]
 
     remaining = length - len(password)
-    all_chars = lower_chars + upper_chars + digits + punctuation
+    all_chars = lower + upper + digits + symbols
     password += [random.choice(all_chars) for _ in range(remaining)]
 
     return ''.join(random.sample(password, len(password)))
 
-# Get file name from user
+# Ask for file name
 def get_file_name():
     while True:
         file_name = input(f"{YELLOW}Enter the file name to save passwords: {RESET}")
@@ -102,14 +104,14 @@ def get_file_name():
         else:
             print(f"{RED}❌ Invalid input. Please enter a valid file name.{RESET}")
 
-# Save passwords to file
+# Save to file
 def save_passwords(passwords):
     while True:
         save = input(f"\n{YELLOW}Do you want to save passwords in a file? [Y/n]: {RESET}").strip().lower()
         if save == "exit":
             print(f"{GREEN}Exiting PassForge...{RESET}")
             exit()
-        if save == "y" or save == "":
+        if save in ["y", ""]:
             file_name = get_file_name()
             with open(f"{file_name}.txt", "w") as file:
                 file.write(f"# Passwords generated on {datetime.now()}\n\n")
@@ -122,24 +124,24 @@ def save_passwords(passwords):
         else:
             print(f"{RED}❌ Invalid input. Please enter 'y' for yes or 'n' for no.{RESET}")
 
-# Ask if the user wants to generate more passwords
+# Ask to generate more
 def generate_more_passwords():
     while True:
         repeat = input(f"{YELLOW}Generate more passwords? [Y/n]: {RESET}").strip().lower()
         if repeat == "exit":
             print(f"{GREEN}Exiting PassForge...{RESET}")
             exit()
-        if repeat == "y" or repeat == "":
+        if repeat in ["y", ""]:
             break
         elif repeat == "n":
             print(f"{GREEN}Thank you for using PassForge. Goodbye!{RESET}")
             exit()
         else:
-            print(f"{RED}❌ Invalid input. Please enter 'y' for yes or 'n' for no.{RESET}")
+            print(f"{RED}❌ Invalid input. Please enter 'y' or 'n'.{RESET}")
 
-# Main function to drive the program
+# Main function
 def main():
-    show_banner()
+    print_banner()
     print_title()
 
     while True:
@@ -155,6 +157,5 @@ def main():
         save_passwords(passwords)
         generate_more_passwords()
 
-# Run if executed directly
 if __name__ == "__main__":
     main()
