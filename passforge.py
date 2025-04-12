@@ -4,10 +4,11 @@ import string
 import random
 from datetime import datetime
 import pyfiglet
-import argparse  # For command-line argument handling
+import argparse
+import os
 
 # Program version
-VERSION = "1.1"
+VERSION = "1.2"
 
 # ANSI color codes (compatible with Kali Linux terminals)
 RED = "\033[91m"
@@ -20,7 +21,7 @@ RESET = "\033[0m"
 
 # Display the ASCII art banner using pyfiglet
 def print_banner():
-    ascii_banner = pyfiglet.figlet_format("PassForge")
+    ascii_banner = pyfiglet.figlet_format("  PassForge")
     print(f"{CYAN}{ascii_banner}{RESET}")
     box = f"""{BLUE}
   ╔═══════════════════════════════════════╗
@@ -32,9 +33,13 @@ def print_banner():
     """
     print(box)
 
+# clear screen
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
 # Print a welcome message
 def print_title():
-    print(f"{WHITE}[+] ===== {CYAN}Welcome to PassForge{WHITE} ===== [+]{RESET}")
+    print(f"\n\n{WHITE}[+] ===== {CYAN}Welcome to PassForge{WHITE} ===== [+]{RESET}")
 
 # Ask user for desired password length
 def length_password():
@@ -71,8 +76,21 @@ def count_password():
 # Ask user which mode of characters to use
 def mode_password():
     while True:
-        print(f"{CYAN}\n[1] Numbers only\n[2] Symbols only\n[3] Letters only\n[4] Mixed characters{RESET}")
-        choice = input(f"{YELLOW}Select a mode: {RESET}").strip().lower()
+        options = [
+            "[1] Numbers only", 
+            "[4] Upper Letters",
+            "[2] Symbols only", 
+            "[5] Lower Letters",
+            "[3] Mixed characters",
+            "[6] Mixed Letters"
+        ]
+
+        print(f"\n")
+        print(f"{CYAN}{options[0]:<25}{options[1]}{RESET}")
+        print(f"{CYAN}{options[2]:<25}{options[3]}{RESET}")
+        print(f"{CYAN}{options[4]:<25}{options[5]}{RESET}")
+
+        choice = input(f"{YELLOW}Choice > {RESET}").strip().lower()
         if choice == "exit":
             print(f"{GREEN}Exiting PassForge...{RESET}")
             exit()
@@ -83,9 +101,13 @@ def mode_password():
             elif choice == 2:
                 return "symbols"
             elif choice == 3:
-                return "letters"
-            elif choice == 4:
                 return "mixed"
+            elif choice == 4:
+                return "upper letters"
+            elif choice == 5:
+                return "lower letters"
+            elif choice == 6:
+                return "mixed letters"
             else:
                 print(f"{RED}❌ Invalid choice. Please select a number between 1 and 4.{RESET}")
         except ValueError:
@@ -102,8 +124,12 @@ def generate_password(length, mode):
         characters = digits
     elif mode == "symbols":
         characters = symbols
-    elif mode == "letters":
+    elif mode == "mixed letters":
         characters = lower + upper
+    elif mode == "upper letters":
+        characters = upper
+    elif mode == "lower letters":
+        characters = lower
     elif mode == "mixed":
         num_lower = num_upper = round(length * 0.2)
         num_digits = num_symbols = round(length * 0.1)
@@ -164,6 +190,7 @@ def generate_more_passwords():
             print(f"{GREEN}Exiting PassForge...{RESET}")
             exit()
         if repeat in ["y", ""]:
+            clear_screen()
             break
         elif repeat == "n":
             print(f"{GREEN}Thank you for using PassForge. Goodbye!{RESET}")
@@ -173,6 +200,7 @@ def generate_more_passwords():
 
 # Main function to run the generator
 def main():
+    clear_screen()
     print_banner()
     print_title()
 
@@ -183,12 +211,14 @@ def main():
 
         passwords = [generate_password(length, mode) for _ in range(count)]
 
-        print(f"\n{WHITE}Generated Passwords:{RESET}")
+        print(f"\n{RED}Generated Passwords:{RESET}")
         for idx, pw in enumerate(passwords, 1):
             print(f"{GREEN}{idx}. {pw}{RESET}")
 
         save_passwords(passwords)
         generate_more_passwords()
+        print_banner()
+        print_title()
 
 # Entry point
 if __name__ == "__main__":
