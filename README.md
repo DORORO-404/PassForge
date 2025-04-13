@@ -69,7 +69,6 @@ Generated Passwords:
 
 Do you want to save the passwords to a file? [Y/n]:
 ```
-You can exit the calculator at any time by typing `exit`.
 
 ## 🤝 Contributing
 
@@ -86,3 +85,10 @@ Feel free to open issues for any bugs or feature requests.
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
+## 📁 Project Structure
+PassForge/
+├── passforge.py           # Main Python script for the wordlist generator
+├── README.md              # Project documentation
+├── LICENSE                # MIT License file
+└── requirements.txt       # List of required Python packages

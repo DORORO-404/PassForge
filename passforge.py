@@ -1,4 +1,4 @@
-# ========= PassForge - Password Generator   =========
+# ========= PassForge - Password Generator =========
 
 # === Import necessary modules ===
 import string
