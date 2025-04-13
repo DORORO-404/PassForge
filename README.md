@@ -87,8 +87,10 @@ Feel free to open issues for any bugs or feature requests.
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📁 Project Structure
+```bash
 PassForge/
 ├── passforge.py           # Main Python script for the wordlist generator
 ├── README.md              # Project documentation
 ├── LICENSE                # MIT License file
 └── requirements.txt       # List of required Python packages
+```
