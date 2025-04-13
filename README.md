@@ -33,7 +33,7 @@ It allows users to:
 - `random` – for secure random generation
 - `string` – character sets
 - `pyfiglet` – for terminal banner art
-- `datetime`, `os`, `sys`
+- `datetime`, `sys`
 
 ---
 
