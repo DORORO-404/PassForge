@@ -11,15 +11,14 @@ Built with Python, it's perfect for developers, cybersecurity professionals, and
 
 ## 🚀 About The Project
 
-**PassForge** generates strong and secure passwords directly from the terminal using Python’s `random.SystemRandom()` for cryptographic-level randomness.  
+**PassForge** generates strong and secure passwords directly from the terminal using Python's `random` module, ensuring cryptographic-level randomness.
 
 It allows users to:
 
-- ✅ Choose the length (8 to 64+ characters)
+- ✅ Choose the length (From 8 to infinity)
 - ✅ Choose character types (letters, digits, symbols)
 - ✅ Save passwords to a text file
 - ✅ Generate multiple passwords at once
-- ✅ Optional clipboard copy support *(coming soon)*
 
 ---
 
@@ -33,7 +32,7 @@ It allows users to:
 - `random` – for secure random generation
 - `string` – character sets
 - `pyfiglet` – for terminal banner art
-- `datetime`, `sys`
+- `datetime`, `sys`, `colorama`
 
 ---
 
@@ -50,24 +49,37 @@ python passforge.py
 
 ```bash
 [+] ===== Welcome to PassForge Password Generator ===== [+]
-Enter the desired password length: 8
-How many passwords would you like to generate?: 5
+Enter the password length (minimum 8): 10
+How many passwords to generate?: 5
 
+[+] Available Password Modes:
+[1] Numbers only
+[2] Symbols only
+[3] Mixed characters
+[4] Uppercase only
+[5] Lowercase only
+[6] Letters (uppercase + lowercase)
+Select a mode: 3
 
-[1] Numbers only         [4] Uppercase letters
-[2] Symbols only         [5] Lowercase letters
-[3] Mixed characters     [6] Mixed letters
+[+] Generating 5 passwords | Length: 10 | Mode: MIXED
+[✔] Passwords Generated Successfully:
+
+1. O|5tb;eFU#
+2. tE4km.nPe9
+3. 1QgQtj@q9!
+4. s5#o7@eRkH
+5. QX4dDSkrO(
+
+[+] What would you like to do next?
+[1] Save the passwords to a file
+[2] Generate more passwords
+[3] Exit PassForge
+Select an option: 1
+Enter a name for the file: DORORO__404
+[✔] Passwords saved to DORORO__404.txt
 Select an option: 3
 
-[+] Generating 5 password(s) | Length: 8 | Mode: MIXED
-Generated Passwords:
-1. Va]MLgT4
-2. nAII#x8Y
-3. 3lL~b:Y:
-4. P2Sc8o&l
-5. 2W=LI^vc
-
-Do you want to save the passwords to a file? [Y/n]:
+Exiting PassForge... Thank you for using our tool!
 ```
 
 ## 🤝 Contributing
@@ -82,7 +94,7 @@ Contributions are always welcome! Here’s how you can contribute:
 
 Feel free to open issues for any bugs or feature requests.
 
-## License
+## ⚖️ License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
