@@ -1,208 +1,246 @@
 # ========= PassForge - Advanced Password Generator =========
 
-# === Import Modules ===
-import string
-import random
-from datetime import datetime
-from colorama import Fore, Style, init
-import pyfiglet
-import sys
+# === Safe Import Modules ===
+try:
+    import os
+    import sys
+    import string
+    import random
+    import getpass
+    from datetime import datetime
+    import pyfiglet
+    from colorama import Fore, Style, init
+except ImportError as e:
+    missing = str(e).split("'")[1]
+    print(f"\n[!] Missing module: '{missing}'")
+    print("[-] Please install all dependencies before running this script.")
+    print("[*] Required: pyfiglet, colorama")
+    print("[+] You can install them using:")
+    print("[i] pip install pyfiglet colorama\n")
+    sys.exit(1)
 
 # === Initialize Colorama ===
-init(autoreset=True)
+init(autoreset=True, strip=False, convert=True)
 
-# === Program Info ===
-VERSION = "1.4"
+# === Version Info ===
+VERSION = "1.5"
 
 # === Color Shortcuts ===
-RED = Fore.RED
-GREEN = Fore.GREEN
-YELLOW = Fore.YELLOW
-BLUE = Fore.BLUE
-MAGENTA = Fore.MAGENTA
-CYAN = Fore.CYAN
-WHITE = Fore.WHITE
-RESET = Style.RESET_ALL
+RED, GREEN, YELLOW = Fore.RED, Fore.GREEN, Fore.YELLOW
+BLUE, MAGENTA, CYAN = Fore.BLUE, Fore.MAGENTA, Fore.CYAN
+WHITE, RESET = Fore.WHITE, Style.RESET_ALL
 
 # === Display ASCII Banner ===
 def display_banner():
-    banner = pyfiglet.figlet_format("\nPassForge")
-    print(f"{CYAN}{banner}{RESET}")
+    print(f"{MAGENTA}{pyfiglet.figlet_format('PassForge')}{RESET}")
     print(f"""{CYAN}
-╔═══════════════════════════════════════╗
-║     {MAGENTA}PassForge - Password Generator{CYAN}    ║
-║     {MAGENTA}Developer   : DORORO__404{CYAN}         ║
-║     {MAGENTA}GitHub      : DORORO-404{CYAN}          ║
-║     {MAGENTA}Version     : {VERSION}{CYAN}                 ║
-╚═══════════════════════════════════════╝{RESET}
+╔════════════════════════════════════════════╗
+║   {MAGENTA}PassForge - Advanced Password Generator{CYAN}  ║
+║   {MAGENTA}By: DORORO__404   |  Version: v{VERSION}  {CYAN}     ║
+╚════════════════════════════════════════════╝{RESET}
 """)
 
-# === Display Welcome Message ===
+# === Show Welcome Message and Usage Instructions ===
 def display_welcome():
-    print(f"{BLUE}[+] ===== {CYAN}Welcome to PassForge Password Generator{BLUE} ===== [+]{RESET}")
+    print(f"\n{MAGENTA}[+] {GREEN}Welcome to {MAGENTA}PassForge{GREEN} — Create. Secure. Generate.{RESET}")
+    print(f"{YELLOW}[i] {CYAN}Advanced password generator for strong and secure credentials.{RESET}")
+    print(f"{YELLOW}[i] {CYAN}Let's forge a password that's hard to crack!{RESET}")
+    print(f"{YELLOW}[i] Type '{CYAN}exit{YELLOW}', '{CYAN}quit{YELLOW}', '{CYAN}close{YELLOW}', or {CYAN}CTRL + C{YELLOW} to exit.{RESET}")
+    print(f"{CYAN}{'-' * 75}{RESET}")
 
-# === Safe Exit ===
+# === Graceful Exit Handler ===
 def exit_passforge():
-    print(f"\n{GREEN}Exiting PassForge... Thank you for using our tool!{RESET}")
+    print(f"\n{GREEN}[*] Exiting PassForge...{RESET}")
+    print(f"{MAGENTA}[!] Thank you for trusting PassForge!{RESET}")
+    print(f"{YELLOW}[i] Session ended successfully.\n{RESET}")
     sys.exit()
 
-# === Input Handler with Exit Options ===
-def input_with_exit(prompt):
+# === General Input Handler with Exit Support ===
+def input_handler(message, is_password=False):
     try:
-        user_input = input(prompt).strip()
-        if user_input.lower() in ["exit", "quit", "q", "x", "close"]:
-            exit_passforge()
-        return user_input
+        while True:
+            user_input = getpass.getpass(message).strip() if is_password else input(message).strip()
+            if user_input.lower() in ["exit", "quit", "close"]:
+                print(f"\n{YELLOW}[i] Exit command received.{RESET}")
+                exit_passforge()
+            elif not user_input:
+                print(f"{RED}[!] Input cannot be empty. Please try again.{RESET}")
+            else:
+                return user_input
     except KeyboardInterrupt:
+        print(f"\n\n{YELLOW}[i] Keyboard interrupt detected.{RESET}")
         exit_passforge()
 
-# === Prompt for Password Length ===
+# === Request Password Length from User ===
 def get_password_length():
     while True:
-        user_input = input_with_exit(f"{YELLOW}Enter the password length (minimum 8): {RESET}")
+        user_input = input_handler(f"\n{CYAN}[>] Enter desired password length (min 8): {RESET}")
         try:
             length = int(user_input)
             if length < 8:
-                print(f"{RED}Error: Password must be at least 8 characters.{RESET}")
+                print(f"{RED}[!] Password length must be at least 8 characters.{RESET}")
             else:
                 return length
         except ValueError:
-            print(f"{RED}Invalid input. Please enter a valid number.{RESET}")
+            print(f"{RED}[!] Please enter a numeric value for the length.{RESET}")
 
-# === Prompt for Password Count ===
+# === Request Number of Passwords to Generate ===
 def get_password_count():
     while True:
-        user_input = input_with_exit(f"{YELLOW}How many passwords to generate?: {RESET}")
+        user_input = input_handler(f"{CYAN}[>] How many passwords to generate?: {RESET}")
         try:
             count = int(user_input)
             if count < 1:
-                print(f"{RED}Error: Please enter a number greater than 0.{RESET}")
+                print(f"{RED}[!] Please enter a number greater than 0.{RESET}")
             else:
                 return count
         except ValueError:
-            print(f"{RED}Invalid input. Please enter a valid number.{RESET}")
+            print(f"{RED}[!] Please enter a numeric value for the count.{RESET}")
 
-# === Prompt for Password Mode ===
+# === Present Password Generation Modes ===
 def choose_password_mode():
-    print(f"\n{MAGENTA}[+] Available Password Modes:{RESET}")
-    modes = [
-        "[1] Numbers only", 
-        "[2] Symbols only", 
-        "[3] Mixed characters",
-        "[4] Uppercase only",
-        "[5] Lowercase only",
-        "[6] Letters (uppercase + lowercase)"
-    ]
-    for mode in modes:
-        print(f"{CYAN}{mode}{RESET}")
+    print(f"\n{MAGENTA}[+] {GREEN}Available Password Modes:{RESET}")
+    modes = {
+        "1": "🔢 Numbers only",
+        "2": "🔣 Symbols only",
+        "3": "🧪 Mixed characters",
+        "4": "🔠 Uppercase only",
+        "5": "🔡 Lowercase only",
+        "6": "🔤 Letters (uppercase + lowercase)"
+    }
+
+    options = {
+        "1": "digits",
+        "2": "symbols",
+        "3": "mixed",
+        "4": "uppercase",
+        "5": "lowercase",
+        "6": "letters"
+    }
+
+    for key, desc in modes.items():
+        print(f"{GREEN}[{key}] {WHITE}{desc}{RESET}")
 
     while True:
-        choice = input_with_exit(f"{YELLOW}Select a mode: {RESET}")
-        options = {
-            "1": "digits",
-            "2": "symbols",
-            "3": "mixed",
-            "4": "uppercase",
-            "5": "lowercase",
-            "6": "letters"
-        }
+        choice = input_handler(f"{CYAN}[>] Select a mode: {RESET}")
         if choice in options:
             return options[choice]
-        else:
-            print(f"{RED}Invalid selection. Please choose from 1 to 6.{RESET}")
+        print(f"{RED}[!] Invalid selection '{WHITE}{choice}{RED}'. Choose 1 to 6.{RESET}")
 
-# === Generate Password Based on Mode and Length ===
+# === Generate a Password Based on Length and Mode ===
 def generate_password(length, mode):
-    lower = string.ascii_lowercase
-    upper = string.ascii_uppercase
-    digits = string.digits
-    symbols = string.punctuation
+    lower, upper, digits, symbols = string.ascii_lowercase, string.ascii_uppercase, string.digits, string.punctuation
 
-    if mode == "digits":
-        chars = digits
-    elif mode == "symbols":
-        chars = symbols
-    elif mode == "uppercase":
-        chars = upper
-    elif mode == "lowercase":
-        chars = lower
-    elif mode == "letters":
-        chars = lower + upper
-    elif mode == "mixed":
-        mix = random.choices(lower, k=round(length * 0.2)) + \
-              random.choices(upper, k=round(length * 0.2)) + \
-              random.choices(digits, k=round(length * 0.1)) + \
-              random.choices(symbols, k=round(length * 0.1))
-        mix += random.choices(lower + upper + digits + symbols, k=length - len(mix))
-        random.shuffle(mix)
-        return ''.join(mix)
-    else:
+    if mode == "mixed":
+        base = [
+            random.choice(lower),
+            random.choice(upper),
+            random.choice(digits),
+            random.choice(symbols)
+        ]
+        remaining = random.choices(lower + upper + digits + symbols, k=length - 4)
+        all_chars = base + remaining
+        random.shuffle(all_chars)
+        return ''.join(all_chars)
+
+    charset = {
+        "digits": digits,
+        "symbols": symbols,
+        "uppercase": upper,
+        "lowercase": lower,
+        "letters": lower + upper
+    }.get(mode)
+
+    if not charset:
         raise ValueError("Unsupported password mode.")
-    
-    return ''.join(random.choices(chars, k=length))
+    return ''.join(random.choices(charset, k=length))
 
-# === Save Passwords to File ===
+# === Save Generated Passwords to a Text File ===
 def save_passwords_to_file(passwords):
-    filename = input_with_exit(f"{YELLOW}Enter a name for the file: {RESET}")
+    filename = input_handler(f"\n{CYAN}[>] Enter a name for the file: {RESET}")
+    if os.path.exists(f"{filename}.txt"):
+        overwrite = input_handler(f"{RED}[!] File '{filename}.txt' already exists. Overwrite? (y/n): {RESET}")
+        if overwrite.lower() != 'y':
+            print(f"{YELLOW}[i] Operation cancelled. No file was saved.{RESET}")
+            return
     with open(f"{filename}.txt", "w") as file:
         file.write(f"# Passwords generated on {datetime.now()}\n\n")
-        for pw in passwords:
-            file.write(pw + "\n")
-    print(f"{GREEN}[✔] Passwords saved to {RESET}{MAGENTA}{filename}.txt{RESET}")
+        file.writelines(pw + "\n" for pw in passwords)
+    print(f"{GREEN}[✔] Passwords saved to {MAGENTA}{filename}.txt{RESET}")
 
-# === Generate and Display Passwords ===
+# === Generate and Display Passwords to User ===
 def generate_and_display_passwords():
     length = get_password_length()
     count = get_password_count()
     mode = choose_password_mode()
 
-    print(f"\n{MAGENTA}[+] Generating {count} passwords | Length: {length} | Mode: {mode.upper()}{RESET}")
+    print(f"\n{MAGENTA}[+] Generating {count} password(s) | Length: {length} | Mode: {mode.upper()}{RESET}")
     passwords = [generate_password(length, mode) for _ in range(count)]
 
     print(f"{GREEN}[✔] Passwords Generated Successfully:{RESET}\n")
     for idx, pw in enumerate(passwords, 1):
         print(f"{WHITE}{idx}. {pw}{RESET}")
-    
     return passwords
 
-# === Ask What to Do Next ===
+# === Present Options After Password Generation ===
 def choose_next_action(passwords):
-    print(f"\n{MAGENTA}[+] What would you like to do next?{RESET}")
-    print(f"{CYAN}[1] Save the passwords to a file{RESET}")
-    print(f"{CYAN}[2] Generate more passwords{RESET}")
-    print(f"{CYAN}[3] Exit PassForge{RESET}")
-
     while True:
-        choice = input_with_exit(f"{YELLOW}Select an option: {RESET}")
+        print(f"\n{MAGENTA}[+] {GREEN}What would you like to do next?{RESET}")
+        print(f"{GREEN}[1] 💾 {WHITE}Save to file{RESET}")
+        print(f"{GREEN}[2] 🔁 {WHITE}Generate more{RESET}")
+        print(f"{GREEN}[3] 🚪 {WHITE}Exit PassForge{RESET}")
+
+        choice = input_handler(f"{CYAN}[>] Select an option: {RESET}")
+
         if choice == "1":
             save_passwords_to_file(passwords)
-            continue
         elif choice == "2":
-            print(f"{GREEN}[✔] Generating more passwords...{RESET}\n")
-            display_welcome()
+            print(f"\n{GREEN}[✔] Generating more passwords...{RESET}")
             passwords = generate_and_display_passwords()
-            continue
-
         elif choice == "3":
+            print(f"\n{YELLOW}[i] Exit command received.{RESET}")
             exit_passforge()
         else:
-            print(f"{RED}Invalid selection. Please choose 1, 2, or 3.{RESET}")
+            print(f"{RED}[!] Invalid selection '{WHITE}{choice}{RED}'. Choose 1, 2, or 3.{RESET}")
 
-# === Show Version Info ===
+# === Menu options ===
+def choose_option():
+    while True:
+        print(f"\n{MAGENTA}[+] {GREEN}What would you like to do?{RESET}")
+        print(f"{GREEN}[1] 🧩 {WHITE}Generate Passwords{RESET}")
+        print(f"{GREEN}[2] 🚪 {WHITE}Exit PassForge{RESET}")
+        choice = input_handler(f"{CYAN}[>] Enter your choice: {RESET}")
+
+        if choice == '1':
+            passwords = generate_and_display_passwords()
+            choose_next_action(passwords)
+        elif choice == '2':
+            print(f"\n{YELLOW}[i] Exit command received.{RESET}")
+            exit_passforge()
+        else:
+            print(f"{RED}[!] Invalid option '{WHITE}{choice}{RED}'. Choose 1 or 2.{RESET}")
+
+# === Handle Version Display if --version Flag is Used ===
 def show_version():
     if "--version" in sys.argv:
         print(f"{CYAN}[•] PassForge Version: {VERSION}{RESET}")
         sys.exit()
 
-# === Main Function ===
+# === Main function ===
 def main():
     show_version()
     display_banner()
     display_welcome()
 
-    while True:
-        passwords = generate_and_display_passwords()
-        choose_next_action(passwords)
+    try:
+        while True:
+            choose_option()
+    except KeyboardInterrupt:
+        print(f"\n\n{YELLOW}[i] Keyboard interrupt detected.{RESET}")
+        exit_passforge()
+    except Exception as e:
+        print(f"\n{RED}[!] Unexpected error: {WHITE}{e}{RESET}")
+        exit_passforge()
 
 # === Entry Point ===
 if __name__ == "__main__":

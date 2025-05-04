@@ -48,38 +48,56 @@ python passforge.py
 ## 🖥️ Example Usage
 
 ```bash
-[+] ===== Welcome to PassForge Password Generator ===== [+]
-Enter the password length (minimum 8): 10
-How many passwords to generate?: 5
+[+] Welcome to PassForge — Create. Secure. Generate.
+[i] Advanced password generator for strong and secure credentials.
+[i] Let's forge a password that's hard to crack!
+[i] Type 'exit', 'quit', 'close', or CTRL + C to exit.
+---------------------------------------------------------------------------
+
+[+] What would you like to do?
+[1] 🧩 Generate Passwords
+[2] 🚪 Exit PassForge
+[>] Enter your choice: 1
+
+[>] Enter desired password length (min 8): 10
+[>] How many passwords to generate?: 3
 
 [+] Available Password Modes:
-[1] Numbers only
-[2] Symbols only
-[3] Mixed characters
-[4] Uppercase only
-[5] Lowercase only
-[6] Letters (uppercase + lowercase)
-Select a mode: 3
+[1] 🔢 Numbers only
+[2] 🔣 Symbols only
+[3] 🧪 Mixed characters
+[4] 🔠 Uppercase only
+[5] 🔡 Lowercase only
+[6] 🔤 Letters (uppercase + lowercase)
+[>] Select a mode: 3
 
-[+] Generating 5 passwords | Length: 10 | Mode: MIXED
+[+] Generating 3 password(s) | Length: 10 | Mode: MIXED
 [✔] Passwords Generated Successfully:
 
-1. O|5tb;eFU#
-2. tE4km.nPe9
-3. 1QgQtj@q9!
-4. s5#o7@eRkH
-5. QX4dDSkrO(
+1. U7ba{Kx6-K
+2. 4$':oyzkP9
+3. *L!6DKcVRY
 
 [+] What would you like to do next?
-[1] Save the passwords to a file
-[2] Generate more passwords
-[3] Exit PassForge
-Select an option: 1
-Enter a name for the file: DORORO__404
-[✔] Passwords saved to DORORO__404.txt
-Select an option: 3
+[1] 💾 Save to file
+[2] 🔁 Generate more
+[3] 🚪 Exit PassForge
+[>] Select an option: 1
 
-Exiting PassForge... Thank you for using our tool!
+[>] Enter a name for the file: passwords
+[✔] Passwords saved to passwords.txt
+
+[+] What would you like to do next?
+[1] 💾 Save to file
+[2] 🔁 Generate more
+[3] 🚪 Exit PassForge
+[>] Select an option: 3
+
+[i] Exit command received.
+
+[*] Exiting PassForge...
+[!] Thank you for trusting PassForge!
+[i] Session ended successfully.
 ```
 
 ## 🤝 Contributing
