@@ -19,9 +19,9 @@ except ImportError as e:
     print("\033[96m  → pip install pyfiglet\033[0m\n")
 
     print("\033[95m[RECOMMENDED] Set up a virtual environment:\033[0m")
-    print("\033[97m  # For Linux / macOS:\033[0m")
+    print("\033[97mFor Linux / macOS:\033[0m")
     print("\033[96m    python3 -m venv venv && source venv/bin/activate\033[0m")
-    print("\033[97m  # For Windows:\033[0m")
+    print("\033[97mFor Windows:\033[0m")
     print("\033[96m    python -m venv venv && venv\\Scripts\\activate\033[0m\n")
 
     print("\033[92m[THEN] Install all requirements from file (if available):\033[0m")
