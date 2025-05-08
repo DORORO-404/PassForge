@@ -37,67 +37,100 @@ It allows users to:
 ---
 
 ## 📦 Installation
+To install **PassForge** version 1.5.1, follow the steps below:
 
-```bash
-git clone https://github.com/DORORO-404/PassForge.git
-cd PassForge
-pip install -r requirements.txt
-python passforge.py
-```
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/DORORO-404/PassForge.git
+    cd PassForge
+    ```
+
+2. **Set Up a Virtual Environment (Recommended)**
+
+    For **Linux** / **macOS**:
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+    For **Windows**:
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate
+    ```
+
+3. Install the required dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+4. Run the application:
+
+    ```bash
+    python passforge.py
+    ```
+
+5. Exit anytime by typing `exit`, `quit`, `close`, or pressing `CTRL + C`.
 
 ## 🖥️ Example Usage
 
 ```bash
 [+] Welcome to PassForge — Create. Secure. Generate.
-[i] Advanced password generator for strong and secure credentials.
-[i] Let's forge a password that's hard to crack!
-[i] Type 'exit', 'quit', 'close', or CTRL + C to exit.
+[INFO] An advanced password generator for strong and secure credentials.
+[INFO] Type 'exit', 'quit', 'close', or press CTRL + C to exit.
 ---------------------------------------------------------------------------
 
 [+] What would you like to do?
-[1] 🧩 Generate Passwords
-[2] 🚪 Exit PassForge
-[>] Enter your choice: 1
+[1] Generate Passwords
+[2] Exit PassForge
+[INPUT] Enter your choice: 1
 
-[>] Enter desired password length (min 8): 10
-[>] How many passwords to generate?: 3
+[INPUT] Enter desired password length: 10
+[INPUT] Enter number of passwords to generate: 10
 
 [+] Available Password Modes:
-[1] 🔢 Numbers only
-[2] 🔣 Symbols only
-[3] 🧪 Mixed characters
-[4] 🔠 Uppercase only
-[5] 🔡 Lowercase only
-[6] 🔤 Letters (uppercase + lowercase)
-[>] Select a mode: 3
+[1] Numbers only
+[2] Symbols only
+[3] Mixed characters
+[4] Uppercase letters only
+[5] Lowercase letters only
+[6] Letters (uppercase + lowercase)
+[INPUT] Select a mode: 3
 
-[+] Generating 3 password(s) | Length: 10 | Mode: MIXED
-[✔] Passwords Generated Successfully:
+[+] Generating 10 passwords | Length: 10 | Mode: MIXED
+[SUCCESS] Passwords generated successfully:
 
-1. U7ba{Kx6-K
-2. 4$':oyzkP9
-3. *L!6DKcVRY
-
-[+] What would you like to do next?
-[1] 💾 Save to file
-[2] 🔁 Generate more
-[3] 🚪 Exit PassForge
-[>] Select an option: 1
-
-[>] Enter a name for the file: passwords
-[✔] Passwords saved to passwords.txt
+1. (IPp(762)|
+2. t{pw3%dIu0
+3. %217xBtm_a
+4. (_p3XKlX06
+5. G[,^3r9m,p
+6. RqU(c!n6jY
+7. FfsG:6UYJ6
+8. :jFxaDO8j]
+9. mEP7^7Q2in
+10. qE-zLP/7R_
 
 [+] What would you like to do next?
-[1] 💾 Save to file
-[2] 🔁 Generate more
-[3] 🚪 Exit PassForge
-[>] Select an option: 3
+[1] Save to file
+[2] Generate more passwords
+[3] Exit PassForge
+[INPUT] Select an option: 1
 
-[i] Exit command received.
+[INPUT] Enter file name to save: passwords
+[SUCCESS] Passwords saved to passwords.txt
 
-[*] Exiting PassForge...
-[!] Thank you for trusting PassForge!
-[i] Session ended successfully.
+[+] What would you like to do next?
+[1] Save to file
+[2] Generate more passwords
+[3] Exit PassForge
+[INPUT] Select an option: 3
+
+[INFO] Exiting PassForge...
+[THANK YOU] Thank you for using PassForge!
+[INFO] Session ended successfully.
 ```
 
 ## 🤝 Contributing
