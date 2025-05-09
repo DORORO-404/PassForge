@@ -69,7 +69,7 @@ To install **PassForge** version 1.5.1, follow the steps below:
 4. Run the application:
 
     ```bash
-    python passforge.py
+    python3 passforge.py
     ```
 
 5. Exit anytime by typing `exit`, `quit`, `close`, or pressing `CTRL + C`.

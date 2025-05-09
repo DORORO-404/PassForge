@@ -49,7 +49,7 @@ def display_banner():
     print(f"""{CYAN}
 ╔════════════════════════════════════════════╗
 ║   {MAGENTA}PassForge - Advanced Password Generator{CYAN}  ║
-║   {MAGENTA}By: DORORO__404   |  Version: v{VERSION}  {CYAN}     ║
+║   {MAGENTA}By: DORORO__404   |  Version: v{VERSION}  {CYAN}   ║
 ╚════════════════════════════════════════════╝{RESET}
 """)
 
@@ -73,14 +73,14 @@ def input_handler(message, is_password=False):
         while True:
             user_input = getpass.getpass(message).strip() if is_password else input(message).strip()
             if user_input.lower() in ["exit", "quit", "close"]:
-                print(f"{YELLOW}[INFO] Exit command received.{RESET}")
+                print(f"\n{YELLOW}[INFO] Exit command received.{RESET}")
                 exit_passforge()
             elif not user_input:
-                print(f"{RED}[ERROR] Input cannot be empty. Please try again.{RESET}")
+                print(f"\n{RED}[ERROR] Input cannot be empty. Please try again.{RESET}")
             else:
                 return user_input
     except KeyboardInterrupt:
-        print(f"\n{YELLOW}[INFO] Keyboard interrupt detected.{RESET}")
+        print(f"\n\n{YELLOW}[INFO] Keyboard interrupt detected.{RESET}")
         exit_passforge()
 
 # === [LOGIC] Get Password Length ===
@@ -200,6 +200,7 @@ def choose_next_action(passwords):
         elif choice == "2":
             passwords = generate_and_display_passwords()
         elif choice == "3":
+            print(f"\n{YELLOW}[INFO] Exit command received.{RESET}")
             exit_passforge()
         else:
             print(f"{RED}[ERROR] Invalid selection '{WHITE}{choice}{RED}'. Choose 1, 2, or 3.{RESET}")
@@ -215,6 +216,7 @@ def choose_option():
             passwords = generate_and_display_passwords()
             choose_next_action(passwords)
         elif choice == '2':
+            print(f"\n{YELLOW}[INFO] Exit command received.{RESET}")
             exit_passforge()
         else:
             print(f"{RED}[ERROR] Invalid option '{WHITE}{choice}{RED}'. Choose 1 or 2.{RESET}")
@@ -240,5 +242,6 @@ def main():
         print(f"\n{RED}[ERROR] Unexpected error: {WHITE}{e}{RESET}")
         exit_passforge()
 
+# === [ENTRY] Entry point for running script directly ===
 if __name__ == "__main__":
     main()
